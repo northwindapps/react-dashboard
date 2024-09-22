@@ -53,8 +53,8 @@ jobs:
         php artisan migrate --force
 
     - name: Run tests
-      run: php artisan test --parallel
+      run: php artisan test
 
     - name: Display Laravel logs
+      if: failure()
       run: cat storage/logs/laravel.log
-    
