@@ -1,4 +1,6 @@
 import React from "react";
+import profileImage from "../assets/img/photo-1431578500526-4d9613015464.jpeg";
+import avatarImage from "../assets/img/faces/face-3.jpg";
 
 // react-bootstrap components
 import {
@@ -156,7 +158,7 @@ function User() {
               <div className="card-image">
                 <img
                   alt="..."
-                  src={require("assets/img/photo-1431578500526-4d9613015464.jpeg")}
+                  src={profileImage}
                 ></img>
               </div>
               <Card.Body>
@@ -165,7 +167,7 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/faces/face-3.jpg")}
+                      src={avatarImage}
                     ></img>
                     <h5 className="title">Mike Andrew</h5>
                   </a>
