@@ -2,12 +2,36 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "start": "react-scripts start",
         "dev": "vite",
         "build": "vite build"
     },
     "devDependencies": {
+        "@vitejs/plugin-react": "^4.3.1",
         "axios": "^1.7.4",
-        "laravel-vite-plugin": "^1.0",
+        "laravel-vite-plugin": "^1.0.5",
+        "sass-embedded": "^1.79.3",
         "vite": "^5.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "5.15.2",
+        "bootstrap": "4.6.0",
+        "chartist": "0.10.1",
+        "gulp": "4.0.2",
+        "gulp-append-prepend": "1.0.8",
+        "react": "16.x.x",
+        "react-bootstrap": "1.4.3",
+        "react-chartist": "0.14.3",
+        "react-dom": "16.x.x",
+        "react-notification-alert": "0.0.12",
+        "react-router": "5.2.0",
+        "react-router-dom": "5.2.0",
+        "react-scripts": "4.0.1",
+        "sass": "^1.79.3"
+    },
+    "optionalDependencies": {
+        "jquery": "3.5.1",
+        "reactstrap": "8.9.0",
+        "typescript": "3.9.10"
     }
 }
