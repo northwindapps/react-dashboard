@@ -1,19 +1,18 @@
-## プロジェクトタイトル　
+## title
 
-- Laravel ポートフォリオ用プロジェクト
+- React&Docker&PHPUnit&GithubAction
 
 <img width="1433" alt="image" src="https://github.com/user-attachments/assets/77b768ce-6072-4033-b904-543755b8cb27">
 
-##  プロジェクトの内容
-- Laravelを用いたWEBシステム
 
-##  プロジェクトの技術要素
+##  Techs that this demo service uses
 - React
 - Docker
+- PHPUnit
 - Laravel
-- githubCI
+- GithubCI
 
-## ローカルでの起動方法
+## Docker command
 
 - docker-compose up -d
 
