@@ -29,5 +29,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
+# Give execute permissions
+RUN chmod +x /var/www/html/entrypoint.sh
 EXPOSE 9000
 CMD ["php-fpm"]

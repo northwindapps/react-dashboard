@@ -24,9 +24,5 @@
 
 ## How to use it
 - docker compose up -d
-- composer install
-- npm install
-- npm run build
-- php artisan key:generate
 
 

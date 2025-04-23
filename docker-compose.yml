@@ -17,6 +17,7 @@ services:
       - DB_DATABASE=laravel
       - DB_USERNAME=root
       - DB_PASSWORD=root1234
+    entrypoint: [ "sh", "./entrypoint.sh" ]
 
   # Nginx service
   web:
