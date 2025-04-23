@@ -12,6 +12,17 @@
 - Laravel
 - GithubCI
 
+## ENV
+- DB_CONNECTION=mysql
+- DB_HOST=db
+- DB_PORT=3306
+- DB_DATABASE=laravel
+- DB_USERNAME=root
+- DB_PASSWORD=root1234
+
+- VITE_APP_NAME="${APP_NAME}"
+- VITE_ENABLED=true
+
 ## Docker command
 
 - docker-compose up -d
