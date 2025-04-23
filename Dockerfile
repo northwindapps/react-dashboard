@@ -24,9 +24,6 @@ WORKDIR /var/www/html
 # Copy project files to the working directory
 COPY . .
 
-# Install project dependencies
-RUN composer install
-
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
