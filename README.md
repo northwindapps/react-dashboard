@@ -27,3 +27,6 @@
 
 ## How to run commands inside the db container
 docker exec -it laravel-app php artisan migrate
+php artisan make:migration create_services_table
+docker exec -it laravel-app php artisan db:seed --class=UserSeeder
+
