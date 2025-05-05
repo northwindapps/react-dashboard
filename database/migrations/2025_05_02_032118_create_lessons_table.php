@@ -17,10 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamp('start_time');
             $table->timestamp('end_time')->nullable();
-            
             $table->unsignedBigInteger('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

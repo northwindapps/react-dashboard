@@ -31,10 +31,14 @@ class ServiceFactory extends Factory
         // Define realistic durations
         $durations = [30, 45, 60, 90, 120];
 
+        $randomUserId = rand(1, 20000);
+
+        $teacher = Teacher::find($randomUserId);
+
         return [
             // --- Foreign Key ---
             // Ensure TeacherFactory exists!
-            'teacher_id' => Teacher::factory(),
+            'teacher_id' => $teacher->id,
 
             // --- Service Details ---
             'title' => fake()->catchPhrase() . ' ' . fake()->randomElement(['Tutoring', 'Workshop', 'Consultation', 'Lesson']), // More service-like title

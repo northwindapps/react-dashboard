@@ -37,6 +37,9 @@ class LessonFactory extends Factory
                            // Clone start time to avoid modifying it, then add hours
                            (clone $startTime)->modify('+'.rand(1, 3).' hours')
                        );
+        $randomUserId = rand(1, 20000);
+
+        $teacher = Teacher::find($randomUserId);
 
         return [
             'title' => fake()->sentence(3), // Generate a short sentence for the title
@@ -46,7 +49,7 @@ class LessonFactory extends Factory
 
             // Associate with a Teacher. Assumes you have a Teacher model and TeacherFactory.
             // This will create a new Teacher if one isn't provided.
-            'teacher_id' => Teacher::factory(),
+            'teacher_id' => $teacher->id,
 
             // 'created_at' and 'updated_at' handled automatically
         ];

@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Appointment; // Your Appointment model namespace
 use App\Models\User;        // Your User model namespace (for student/teacher)
+use App\Models\Teacher; 
+use App\Models\Student; 
 use App\Models\Lesson;      // Your Lesson model namespace
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon; // Useful for date manipulation
@@ -36,20 +38,32 @@ class AppointmentFactory extends Factory
         // Define possible statuses
         $statuses = ['scheduled', 'completed', 'cancelled'];
 
+        $randomUserId = rand(1, 20000);
+
+        $student = Student::find($randomUserId);
+
+        $randomUserId = rand(1, 20000);
+
+        $lesson = Lesson::find($randomUserId);
+
+        $randomUserId = rand(1, 20000);
+
+        $teacher = Teacher::find($randomUserId);
+
         return [
             // --- Foreign Keys ---
             // Ensure UserFactory exists!
             // Note: For a real app, you might want logic to ensure student != teacher,
             // possibly by fetching existing users or using specific states.
-            'student_id' => User::factory(),
-            'teacher_id' => User::factory(),
+            'student_id' => $student->id,
+            'teacher_id' => $teacher->id,
 
             // Optionally link to a Lesson (e.g., 60% chance)
             // Ensure LessonFactory exists!
-            'lesson_id' => fake()->optional(0.6)->passthrough(
-                             fn() => Lesson::factory()->create()->id // Create lesson if chosen
-                         ),
-
+            //'lesson_id' => fake()->optional(0.6)->passthrough(
+                        //      fn() => Lesson::factory()->create()->id // Create lesson if chosen
+                        //  ),
+            'lesson_id' => $lesson->id,
 
             // --- Time and Status ---
             'start_time' => $startTime,
@@ -106,9 +120,11 @@ class AppointmentFactory extends Factory
      */
     public function withLesson(): static
     {
+        $lesson = Lesson::inRandomOrder()->first();
+
         return $this->state(fn (array $attributes) => [
              // Ensure LessonFactory exists
-            'lesson_id' => Lesson::factory(),
+            'lesson_id' => $lesson->id,
         ]);
     }
 

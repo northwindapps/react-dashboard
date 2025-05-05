@@ -25,13 +25,16 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
+        $randomUserId = rand(1, 20000);
+
+        $user = User::find($randomUserId);
         // Define possible statuses based on your application logic
         $statuses = ['pending', 'completed', 'failed', 'refunded', 'cancelled'];
 
         return [
             // Associate with a User. This will automatically create a User
             // using its factory if one doesn't exist or isn't provided.
-            'user_id' => User::factory(),
+            'user_id' => $user->id,
 
             // Generate a random decimal amount with 2 decimal places.
             // Adjust the min/max range (10.00 to 1000.00 here) as needed.

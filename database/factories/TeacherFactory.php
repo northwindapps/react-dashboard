@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\User; // 
 use App\Models\Teacher; // Make sure this matches your model's namespace
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,9 +24,16 @@ class TeacherFactory extends Factory
      */
     public function definition(): array
     {
+        $randomUserId = rand(1, 20000);
+
+        // 2. Attempt to find the User with that specific ID
+        // User::find($id) is the Eloquent shortcut for User::where('id', $id)->first()
+        $user = User::find($randomUserId);
+
         return [
-            'name' => fake()->name(), // Generates a random person's name
-            'email' => fake()->unique()->safeEmail(), // Generates a unique, safe email address
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
             'specialty' => fake()->randomElement([ // Picks a random specialty or makes it null
                 'Mathematics',
                 'Physics',

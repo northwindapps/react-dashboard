@@ -13,6 +13,6 @@ class AppointmentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Appointment::factory()->count(20000)->create();
     }
 }

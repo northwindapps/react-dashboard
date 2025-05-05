@@ -13,6 +13,6 @@ class LessonSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Lesson::factory()->count(20000)->create();
     }
 }
