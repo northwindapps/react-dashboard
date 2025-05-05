@@ -37,4 +37,3 @@ docker exec -it laravel-app php artisan db:seed --class=LessonSeeder
 docker exec -it laravel-app php artisan db:seed --class=LessonStudentSeeder
 docker exec -it laravel-app php artisan db:seed --class=AppointmentSeeder
 docker exec -it laravel-app php artisan migrate:fresh --seed
-

@@ -1,0 +1,6 @@
+<!-- sql analysis -->
+-- PostgreSQL or MySQL 8+/MariaDB 10.1+
+EXPLAIN ANALYZE SELECT * FROM `teachers` WHERE `specialty` = 'Physics' ORDER BY `name` ASC;
+
+-- Older MySQL/MariaDB
+EXPLAIN SELECT * FROM `teachers` WHERE `specialty` = 'Physics' ORDER BY `name` ASC;
