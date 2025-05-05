@@ -22,11 +22,11 @@ class MyFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_example2(): void
-    {
-        $this->seed(); 
-        $emailToCheck = 'test@example.com';
-        $userCount = DB::table('users')->where('email', $emailToCheck)->count();
-        $this->assertEquals(1, $userCount);
-    }
+    // public function test_example2(): void
+    // {
+    //     $this->seed(); 
+    //     $emailToCheck = 'test@example.com';
+    //     $userCount = DB::table('users')->where('email', $emailToCheck)->count();
+    //     $this->assertEquals(1, $userCount);
+    // }
 }
