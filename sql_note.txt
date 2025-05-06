@@ -10,3 +10,22 @@ docker exec -it laravel-app php artisan make:migration add_indexes_to_teachers_t
 docker exec -it laravel-app php artisan migrate:rollback
 
 docker exec -it laravel-app php artisan migrate:reset
+
+-- slower
+SELECT * FROM users WHERE  id IN (SELECT user_id from payments WHERE status = 'failed') ORDER BY users.id ASC;
+
+-- faster
+SELECT *
+FROM users u
+WHERE EXISTS (
+    SELECT user_id
+    FROM payments p
+    WHERE p.user_id = u.id AND p.status = 'failed'
+) ORDER BY u.id ASC;
+
+-- slower
+SELECT DISTINCT users.*
+FROM users
+INNER JOIN payments ON users.id = payments.user_id
+WHERE payments.status = 'failed' ORDER BY users.id ASC;
+
