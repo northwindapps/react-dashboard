@@ -4,3 +4,9 @@ EXPLAIN ANALYZE SELECT * FROM `teachers` WHERE `specialty` = 'Physics' ORDER BY 
 
 -- Older MySQL/MariaDB
 EXPLAIN SELECT * FROM `teachers` WHERE `specialty` = 'Physics' ORDER BY `name` ASC;
+
+docker exec -it laravel-app php artisan make:migration add_indexes_to_teachers_table --table=teachers
+
+docker exec -it laravel-app php artisan migrate:rollback
+
+docker exec -it laravel-app php artisan migrate:reset
