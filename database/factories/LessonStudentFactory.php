@@ -41,18 +41,8 @@ class LessonStudentFactory extends Factory
         $lesson = Lesson::find($randomUserId);
 
         return [
-            // Use the factories for Lesson and Student to ensure valid foreign keys exist.
-            // This approach creates a new Lesson and a new Student record each time
-            // this factory definition runs, guaranteeing referential integrity and
-            // avoiding the unique constraint issue for these specific new records.
             'lesson_id' => $lesson->id,
             'student_id' => $student->id,
-
-            // Timestamps (created_at, updated_at) are usually handled automatically
-            // by Eloquent when records are created, so you often don't need
-            // to define them here unless you need specific dates.
-            // 'created_at' => now(),
-            // 'updated_at' => now(),
         ];
     }
 }
