@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // id (primary key)
             $table->unsignedBigInteger('user_id');
             $table->decimal('amount', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('status',20)->default('pending');
             $table->timestamps(); // created_at and updated_at
 
             // Optional: foreign key constraint

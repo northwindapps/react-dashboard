@@ -26,7 +26,7 @@
 - docker compose up -d
 
 ## How to run commands inside the db container
-docker exec -it laravel-app php artisan migrate
+docker exec -it laravel-app php artisan migrate:fresh
 docker exec -it laravel-app php artisan db:seed --class=UserSeeder
 docker exec -it laravel-app php artisan db:seed --class=TeacherSeeder
 docker exec -it laravel-app php artisan db:seed --class=StudentSeeder
@@ -36,3 +36,6 @@ docker exec -it laravel-app php artisan db:seed --class=LessonSeeder
 docker exec -it laravel-app php artisan db:seed --class=LessonStudentSeeder
 docker exec -it laravel-app php artisan db:seed --class=AppointmentSeeder
 <!-- docker exec -it laravel-app php artisan migrate:fresh --seed -->
+
+### How to add a new migration file
+php artisan make:migration add_userid_status_index_to_payments_table --table=payments
