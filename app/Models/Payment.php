@@ -13,6 +13,7 @@ class Payment extends Model
         'user_id',
         'amount',
         'status',
+        'paid_at',
     ];
 
     /**

@@ -25,60 +25,95 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
+        // It's generally safer to use User::factory() or ensure users exist
+        // For this example, we'll assume User IDs 1-20000 exist or use factory.
+        // $user = User::inRandomOrder()->first() ?? User::factory()->create();
+        // Or, if you strictly need from a range and they exist:
+        // $randomUserId = $this->faker->numberBetween(1, 20000);
+        // $user = User::find($randomUserId); // This can return null
+
         $randomUserId = rand(1, 20000);
 
         $user = User::find($randomUserId);
+        
         // Define possible statuses based on your application logic
-        $statuses = ['pending', 'completed', 'failed', 'refunded', 'cancelled'];
+        $statuses = ['pending', 'completed', 'failed', 'cancelled'];
+        $status = $this->faker->randomElement($statuses);
+
+        $createdAt = $this->faker->dateTimeBetween('-1 year', 'now'); // Fake a created_at for realism
+        $paidAt = null;
+
+        if ($status === 'completed') {
+            // If the payment is completed, set a paid_at date.
+            // It should be after or equal to created_at.
+            // Let's make it sometime between created_at and now, or slightly after created_at.
+            $paidAt = $this->faker->dateTimeBetween($createdAt, 'now');
+        }
+
 
         return [
-            // Associate with a User. This will automatically create a User
-            // using its factory if one doesn't exist or isn't provided.
-            'user_id' => $user->id,
+            'user_id' => $user->id, // Eloquent factories can often take a factory instance or an ID
 
-            // Generate a random decimal amount with 2 decimal places.
-            // Adjust the min/max range (10.00 to 1000.00 here) as needed.
-            'amount' => fake()->randomFloat(2, 10, 1000),
+            'amount' => $this->faker->randomFloat(2, 10, 1000),
+            'status' => $status,
+            'paid_at' => $paidAt, // <-- YOUR NEW FIELD
 
-            // Pick a random status from the predefined list.
-            // Note: The migration default is 'pending', but the factory
-            // can generate various statuses for testing/seeding diversity.
-            'status' => fake()->randomElement($statuses),
-
-            // 'created_at' and 'updated_at' are handled automatically.
+            // Manually set created_at and updated_at if you want them to be varied
+            // and not just 'now' when the factory runs.
+            'created_at' => $createdAt,
+            'updated_at' => $this->faker->dateTimeBetween($createdAt, 'now'),
         ];
     }
 
     /**
-     * Indicate that the payment is pending.
-     * (Example of a state)
+     * Indicate that the payment is completed.
      */
-    public function pending(): static
+    public function completed(): Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'status' => 'pending',
-        ]);
+        return $this->state(function (array $attributes) {
+            // If created_at is already set in attributes (e.g. by definition()), use it.
+            // Otherwise, generate a created_at.
+            $createdAt = $attributes['created_at'] ?? $this->faker->dateTimeBetween('-1 year', 'now');
+
+            return [
+                'status' => 'completed',
+                'paid_at' => $this->faker->dateTimeBetween($createdAt, 'now'),
+                'created_at' => $createdAt, // Ensure created_at is consistent
+                'updated_at' => $this->faker->dateTimeBetween($createdAt, 'now'), // Ensure updated_at is consistent
+            ];
+        });
     }
 
-     /**
-     * Indicate that the payment is completed.
-     * (Example of a state)
+    /**
+     * Indicate that the payment is pending.
      */
-    public function completed(): static
+    public function pending(): Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'status' => 'completed',
-        ]);
+        return $this->state(function (array $attributes) {
+            $createdAt = $attributes['created_at'] ?? $this->faker->dateTimeBetween('-1 year', 'now');
+            return [
+                'status' => 'pending',
+                'paid_at' => null,
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt, // For pending, updated_at might be same as created_at
+            ];
+        });
     }
 
     /**
      * Indicate that the payment has failed.
-     * (Example of a state)
      */
-    public function failed(): static
+    public function failed(): static // or Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'status' => 'failed',
-        ]);
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => 'failed',
+                'paid_at' => null, // Failed payments don't have a paid_at date
+                'updated_at' => $this->faker->dateTimeBetween(
+                    $attributes['created_at'] ?? Carbon::now()->subDays(rand(1,30)),
+                    'now'
+                ),
+            ];
+        });
     }
 }
