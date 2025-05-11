@@ -24,6 +24,7 @@
 
 ## How to use it
 - docker compose up -d
+- docker compose up --build    
 
 ## How to run commands inside the db container
 docker exec -it laravel-app php artisan migrate:fresh
