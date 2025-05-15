@@ -48,3 +48,7 @@ docker exec -it laravel-app php artisan migrate:rollback --path=database/migrati
 
 ##### Laravel Passport
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8080/api/user
+
+##### Commands
+read the log:
+docker exec -it laravel-app tail -n 40 storage/logs/laravel.log
