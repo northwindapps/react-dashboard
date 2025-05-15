@@ -36,7 +36,7 @@ services:
 
   # MySQL service
   db:
-    image: mysql:5.7
+    image: mysql:8.0.36
     # image: mysql:8.0.36 it's slow in data seeding but WITH syntax is available
     container_name: laravel-db
     restart: always

@@ -45,3 +45,6 @@ php artisan make:migration add_userid_status_index_to_payments_table --table=pay
 docker exec -it laravel-app ls -l database/migrations
 
 docker exec -it laravel-app php artisan migrate:rollback --path=database/migrations/2025_05_02_024139_create_payments_table.php
+
+##### Laravel Passport
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8080/api/user
