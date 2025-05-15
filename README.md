@@ -46,9 +46,13 @@ docker exec -it laravel-app ls -l database/migrations
 
 docker exec -it laravel-app php artisan migrate:rollback --path=database/migrations/2025_05_02_024139_create_payments_table.php
 
-##### Laravel Passport
+##### Testing an API route guared with Laravel Passport
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8080/api/user
 
-##### Commands
+##### Artisan Commands
 read the log:
 docker exec -it laravel-app tail -n 40 storage/logs/laravel.log
+
+creating a new passport client:
+php artisan passport:client --personal
+php artisan passport:install
