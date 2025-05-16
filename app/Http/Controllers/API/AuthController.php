@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -17,6 +18,7 @@ class AuthController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'role' => 'required|string|in:admin,teacher,student',
         ]);
 
         if ($validator->fails()) {
@@ -30,6 +32,20 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('API Token')->accessToken;
+
+        // not for bulk creation
+        if ($request->role == "admin"){
+            $role = Role::firstOrCreate(['name' => 'admin']);
+        }
+        if ($request->role == "teacher"){
+            $role = Role::firstOrCreate(['name' => 'teacher']);
+        }
+        if ($request->role == "student"){
+            $role = Role::firstOrCreate(['name' => 'student']);
+        } 
+    
+        //assign role
+        $user->assignRole($role);
 
         return response()->json([
             'user'  => $user,

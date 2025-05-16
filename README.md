@@ -49,6 +49,14 @@ docker exec -it laravel-app php artisan migrate:rollback --path=database/migrati
 ##### Testing an API route guared with Laravel Passport
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8080/api/user
 
+curl -X POST http://localhost:8080/api/register \
+ -H "Content-Type: application/json" \
+ -d '{"name": "John", "email": "john@example.com", "password": "secret", "role": "admin"}'
+
+curl -X POST http://localhost:8080/api/login \
+-H "Content-Type: application/json" \
+-d '{"email": "john@example.com", "password": "secret"}'
+
 ##### Artisan Commands
 read the log:
 docker exec -it laravel-app tail -n 40 storage/logs/laravel.log
