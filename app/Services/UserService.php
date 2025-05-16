@@ -10,7 +10,7 @@ class UserService
 {
     public function createUser(array $data)
     {
-        if (!$role) {
+        if (!$data['role']) {
             throw new \InvalidArgumentException("Invalid role: " . $data['role']);
         }
 
