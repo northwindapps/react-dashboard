@@ -3,13 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Teacher;
+use App\Models\Student;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +48,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function teacher(): HasOne
+    {
+        // Laravel assumes the foreign key is user_id (model name + _id)
+        // and the local key is 'id'. You can specify them if different:
+        // return $this->hasOne(Teacher::class, 'foreign_key_on_teachers', 'local_key_on_users');
+        return $this->hasOne(Teacher::class);
+    }
+
+    public function student(): HasOne
+    {
+        // Laravel assumes the foreign key is user_id (model name + _id)
+        // and the local key is 'id'. You can specify them if different:
+        // return $this->hasOne(Teacher::class, 'foreign_key_on_teachers', 'local_key_on_users');
+        return $this->hasOne(Student::class);
     }
 }

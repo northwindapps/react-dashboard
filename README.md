@@ -24,5 +24,43 @@
 
 ## How to use it
 - docker compose up -d
+- docker compose up --build    
 
+## How to run commands inside the db container
+docker exec -it laravel-app php artisan migrate:fresh
+docker exec -it laravel-app php artisan db:seed --class=UserSeeder
+docker exec -it laravel-app php artisan db:seed --class=TeacherSeeder
+docker exec -it laravel-app php artisan db:seed --class=StudentSeeder
+docker exec -it laravel-app php artisan db:seed --class=ServiceSeeder
+docker exec -it laravel-app php artisan db:seed --class=PaymentSeeder
+docker exec -it laravel-app php artisan db:seed --class=LessonSeeder
+docker exec -it laravel-app php artisan db:seed --class=LessonStudentSeeder
+docker exec -it laravel-app php artisan db:seed --class=AppointmentSeeder
+<!-- docker exec -it laravel-app php artisan migrate:fresh --seed -->
 
+### How to add a new migration file
+php artisan make:migration add_userid_status_index_to_payments_table --table=payments
+
+#### How to rollback a migration file
+docker exec -it laravel-app ls -l database/migrations
+
+docker exec -it laravel-app php artisan migrate:rollback --path=database/migrations/2025_05_02_024139_create_payments_table.php
+
+##### Testing an API route guared with Laravel Passport
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8080/api/user
+
+curl -X POST http://localhost:8080/api/register \
+ -H "Content-Type: application/json" \
+ -d '{"name": "John", "email": "john@example.com", "password": "secret", "role": "admin"}'
+
+curl -X POST http://localhost:8080/api/login \
+-H "Content-Type: application/json" \
+-d '{"email": "john@example.com", "password": "secret"}'
+
+##### Artisan Commands
+read the log:
+docker exec -it laravel-app tail -n 40 storage/logs/laravel.log
+
+creating a new passport client:
+php artisan passport:client --personal
+php artisan passport:install

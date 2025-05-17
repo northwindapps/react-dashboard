@@ -24,6 +24,7 @@ class MyFeatureTest extends TestCase
 
     public function test_example2(): void
     {
+        //run databaseseeder
         $this->seed(); 
         $emailToCheck = 'test@example.com';
         $userCount = DB::table('users')->where('email', $emailToCheck)->count();
